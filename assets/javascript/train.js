@@ -1,7 +1,3 @@
-//=========VARIBLE============//
-
-
-
 
 
 //==============SetUp===========//
@@ -44,20 +40,25 @@ data.ref().on("value", function (snapshot) {
         var tableRow = $('<tr>')
         var tdName = $('<td>').text(name);
         var tdDestination = $('<td>').text(destination);
-        var tdTimeStart = $('<td>').text(timeStart);
         var tdFrequency = $('<td>').text(frequency);
-        
+        var tdTimeStart = $('<td>').text(arrival);
+
+
         var firstTimeConverted = moment(timeStart, "HH:mm").subtract(1, "years");
         // Difference between the times
-    var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
-    // Time apart (remainder)
-    var tRemainder = diffTime % frequency;
+        var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+        // Time apart (remainder)
+        var tRemainder = diffTime % frequency;
 
-    var tMinutesTillTrain = frequency - tRemainder;
+        var tMinutesTillTrain = frequency - tRemainder;
         var tdArrival = $('<td>').text(tMinutesTillTrain);
 
+        var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+       var arrival = moment(nextTrain).format("hh:mm")
+
+
         tableRow.append(tdName, tdDestination, tdFrequency, tdTimeStart, tdArrival)
-       
+
         $("tbody").append(tableRow);
     }
 })
