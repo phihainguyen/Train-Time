@@ -22,6 +22,7 @@ var data = firebase.database();
 //============EventListener=========//
 $("#submit-button").click(function (event) {
     event.preventDefault();
+    $('tbody').empty()
     var name = $("#name").val();
     var destination = $("#destination").val();
     var timeStart = $("#timeStart").val();
@@ -41,7 +42,7 @@ data.ref().on("value", function (snapshot) {
         var tdName = $('<td>').text(name);
         var tdDestination = $('<td>').text(destination);
         var tdFrequency = $('<td>').text(frequency);
-        var tdTimeStart = $('<td>').text(arrival);
+
 
 
         var firstTimeConverted = moment(timeStart, "HH:mm").subtract(1, "years");
@@ -54,8 +55,8 @@ data.ref().on("value", function (snapshot) {
         var tdArrival = $('<td>').text(tMinutesTillTrain);
 
         var nextTrain = moment().add(tMinutesTillTrain, "minutes");
-       var arrival = moment(nextTrain).format("hh:mm")
-
+        var arrival = moment(nextTrain).format("hh:mm")
+        var tdTimeStart = $('<td>').text(arrival);
 
         tableRow.append(tdName, tdDestination, tdFrequency, tdTimeStart, tdArrival)
 
